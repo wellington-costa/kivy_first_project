@@ -1,2 +1,184 @@
 <MainScreenManager>:
-    LoginScreen:
+   ListProdScreen:
+   CadProdScreen:
+   LoginScreen:
+
+
+<ListProdScreen>:
+   name: "ListProdScreen"
+   MDLabel:
+      text:"Estoque"
+      pos_hint:{"center_x": .7, "center_y":.89}
+      font_size:30
+   MDTextField
+      hint_text: "Pesquisar..."
+      pos_hint:{"center_x": .7, "center_y":.85}
+      size_hint_x: .3
+   ScrollView:
+      do_scroll_x: False
+      do_scroll_y: True
+      pos_hint:{"center_y":.5}
+      size_hint:(1,.6)
+      MDList:
+         ThreeLineListItem:
+            id:prod_pri
+            text: "Código: 12  Cerveja Lata 300ml"
+            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
+            tertiary_text:"Quantidade: 1"
+
+         ThreeLineListItem:
+            id:prod_pri2
+            text: "Código: 13  Cerveja Lata 300ml"
+            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
+            tertiary_text:"Quantidade: 10"
+
+         ThreeLineListItem:
+            id:prod_pri
+            text: "Código: 12  Cerveja Lata 300ml"
+            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
+            tertiary_text:"Quantidade: 10"
+
+         ThreeLineListItem:
+            id:prod_pri2
+            text: "Código: 13  Cerveja Lata 300ml"
+            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
+            tertiary_text:"Quantidade: 10"
+
+         ThreeLineListItem:
+            id:prod_pri
+            text: "Código: 12  Cerveja Lata 300ml"
+            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
+            tertiary_text:"Quantidade: 10"
+
+         ThreeLineListItem:
+            id:prod_pri2
+            text: "Código: 13  Cerveja Lata 300ml"
+            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
+            tertiary_text:"Quantidade: 10"
+
+         ThreeLineListItem:
+            id:prod_pri
+            text: "Código: 12  Cerveja Lata 300ml"
+            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
+            tertiary_text:"Quantidade: 10"
+
+         ThreeLineListItem:
+            id:prod_pri2
+            text: "Código: 13  Cerveja Lata 300ml"
+            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
+            tertiary_text:"Quantidade: 10"
+
+<CadProdScreen>:
+   name: "CadProdScreen"
+   MDFloatLayout:
+      MDLabel:
+         text:"Cadastro de Produto"
+         pos_hint:{"center_x":.73, "center_y":.90}
+         font_size:26
+      MDBoxLayout:
+         orientation: "vertical"
+         pos_hint:{"center_x": .55, "center_y": .5}
+         adaptive_height: True
+         size_hint: (.5, .75)
+         MDTextField:
+            id: desc_product
+            mode: "rectangle"
+            required: False
+            helper_text_mode: "on_error"
+            hint_text: "Descrição:"
+            font_size: 16
+            multiline: False
+            size_hint: (0.7,0.05)
+
+         MDTextField:
+            id: marca
+            mode: "rectangle"
+            required: False
+            helper_text_mode: "on_error"
+            hint_text: "Marca:"
+            font_size: 16
+            multiline: False
+            size_hint: (0.7,0.05)
+
+         MDTextField:
+            id: cod_product
+            mode: "rectangle"
+            required: True
+            helper_text_mode: "on_error"
+            hint_text: "Código:"
+            font_size: 16
+            multiline: False
+            size_hint: (0.7,0.05)
+
+         MDTextField:
+            id: qtd
+            mode: "rectangle"
+            required: False
+            helper_text_mode: "on_error"
+            hint_text: "Quantidade (Un):"
+            font_size: 16
+            multiline: False
+            size_hint: (0.7,0.05)
+
+         MDTextField:
+            id: prec_compra
+            mode: "rectangle"
+            required: False
+            helper_text_mode: "on_error"
+            hint_text: "R$ Compra:"
+            font_size: 16
+            multiline: False
+            size_hint: (0.7,0.05)
+
+         MDTextField:
+            id: prec_atacado
+            mode: "rectangle"
+            required: False
+            helper_text_mode: "on_error"
+            hint_text: "R$ Atacado:"
+            font_size: 16
+            multiline: False
+            size_hint: (0.7,0.05)
+
+         MDTextField:
+            id: prec_varejo
+            mode: "rectangle"
+            required: False
+            helper_text_mode: "on_error"
+            hint_text: "R$ Varejo:"
+            font_size: 16
+            multiline: False
+            size_hint: (0.7,0.05)
+
+         MDTextField:
+            id: cb
+            mode: "rectangle"
+            required: False
+            helper_text_mode: "on_error"
+            hint_text: "Código de Barras:"
+            font_size: 16
+            multiline: False
+            size_hint: (0.7,0.05)
+
+   MDFloatLayout:
+      MDBoxLayout:
+         orientation: "horizontal"
+         size_hint: (.5, 1)
+         pos_hint:{"center_x": .47, "center_y": .55}
+
+         MDRaisedButton:
+            text:"Limpar"
+            size_hint: (0.5,0.05)
+            on_press: root.clear()
+
+
+
+         MDLabel:
+            id:lbregister
+            text:" "
+
+         MDRaisedButton:
+            text:"Cadastrar"
+            size_hint: (0.5,0.05)
+            on_press: root.register(desc_product.text, marca.text, cod_product.text, qtd.text, prec_compra.text, prec_atacado.text, prec_varejo.text, cb.text)
+
