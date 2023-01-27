@@ -2,7 +2,32 @@ import json
 
 from pyrebase import pyrebase
 
-firebaseConfig = {
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+
+cred = credentials.Certificate("mercadinho-9b7ce-firebase-adminsdk-8f95a-7e18e53ebd.json")
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
+ref = db.collection('produto').stream()
+#ref2 = db.collection('produto').document('cod_2')
+list=[]
+i=0
+for doc in ref:
+    print('{}=>{}'.format(doc.id, doc.to_dict()))
+    data = {doc.id : doc.to_dict()}
+    list[i] = data
+    i+=i
+
+
+for j in len(list):
+    print(list)
+    print(list[j])
+
+
+'''
+    firebaseConfig = {
       'apiKey': "AIzaSyCbylYBXVRCsDb5L0crIKL-_H33iP1x6lM",
       'authDomain': "mercadinho-9b7ce.firebaseapp.com",
       'databaseURL': "https://mercadinho-9b7ce-default-rtdb.firebaseio.com",
@@ -23,3 +48,4 @@ for produto in produtos.each():
 
     with open("produtos.json", "w") as arq:
      json.dumps(produto, arq, indent=4)
+'''
