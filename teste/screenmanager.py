@@ -24,8 +24,12 @@ class CadProdScreen(Screen):
         self.manager.get_screen('CadProdScreen').ids.cb.text = ""
 
     def register(self, descricao, marca, cod_product, qtd, prec_compra, prec_atacado, prec_varejo, cb ):
-       if registerProduct(descricao, marca, cod_product, qtd, prec_compra, prec_atacado, prec_varejo, cb):
-        self.clear()
+       if registerProduct(descricao, marca, cod_product, qtd, prec_compra, prec_atacado, prec_varejo, cb) == True:
+          self.clear()
+
+       else:
+          self.clear()
+
 
 class ListProdScreen(Screen):
     pass
