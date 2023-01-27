@@ -13,17 +13,20 @@ db = firestore.client()
 ref = db.collection('produto').stream()
 #ref2 = db.collection('produto').document('cod_2')
 list=[]
-i=0
 for doc in ref:
-    print('{}=>{}'.format(doc.id, doc.to_dict()))
+    #print('{}=>{}'.format(doc.id, doc.to_dict()))
     data = {doc.id : doc.to_dict()}
-    list[i] = data
-    i+=i
+    list.append(data)
 
 
-for j in len(list):
-    print(list)
-    print(list[j])
+for i in list:
+    print(i)
+
+
+#print(list[0]['cod_1']['marca'])
+
+
+
 
 
 '''
