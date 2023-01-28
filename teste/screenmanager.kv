@@ -1,17 +1,18 @@
 <MainScreenManager>:
-   CadProdScreen:
    ListProdScreen:
+   CadProdScreen:
    LoginScreen:
 
 
 <ListProdScreen>:
    name: "ListProdScreen"
+   md_bg_color: 188/255, 227/255, 217/255, 1
    MDLabel:
       text:"Estoque"
       pos_hint:{"center_x": .7, "center_y":.89}
       font_size:30
    MDTextField
-      hint_text: "Pesquisar..."
+      hint_text: "Pesquisar produto..."
       pos_hint:{"center_x": .7, "center_y":.85}
       size_hint_x: .3
    ScrollView:
@@ -20,53 +21,16 @@
       pos_hint:{"center_y":.5}
       size_hint:(1,.6)
       MDList:
-         ThreeLineListItem:
-            id:prod_pri
-            text: "Código: 12  Cerveja Lata 300ml"
-            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
-            tertiary_text:"Quantidade: 1"
 
          ThreeLineListItem:
-            id:prod_pri2
-            text: "Código: 13  Cerveja Lata 300ml"
-            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
-            tertiary_text:"Quantidade: 10"
+            id:produto
+            text: "Estoque Vazio!"
+            secondary_text:" "
+            tertiary_text:" "
 
-         ThreeLineListItem:
-            id:prod_pri
-            text: "Código: 12  Cerveja Lata 300ml"
-            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
-            tertiary_text:"Quantidade: 10"
 
-         ThreeLineListItem:
-            id:prod_pri2
-            text: "Código: 13  Cerveja Lata 300ml"
-            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
-            tertiary_text:"Quantidade: 10"
+            on_active:root.showData()
 
-         ThreeLineListItem:
-            id:prod_pri
-            text: "Código: 12  Cerveja Lata 300ml"
-            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
-            tertiary_text:"Quantidade: 10"
-
-         ThreeLineListItem:
-            id:prod_pri2
-            text: "Código: 13  Cerveja Lata 300ml"
-            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
-            tertiary_text:"Quantidade: 10"
-
-         ThreeLineListItem:
-            id:prod_pri
-            text: "Código: 12  Cerveja Lata 300ml"
-            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
-            tertiary_text:"Quantidade: 10"
-
-         ThreeLineListItem:
-            id:prod_pri2
-            text: "Código: 13  Cerveja Lata 300ml"
-            secondary_text:"Marca: Itaipava Varejo:R$3,30 - Atacado:R$3,00"
-            tertiary_text:"Quantidade: 10"
 
 <CadProdScreen>:
    name: "CadProdScreen"
@@ -101,11 +65,11 @@
             size_hint: (0.7,0.05)
 
          MDTextField:
-            id: cod_product
+            id: tipo_product
             mode: "rectangle"
             required: True
             helper_text_mode: "on_error"
-            hint_text: "Código:"
+            hint_text: "Tipo do produto:"
             font_size: 16
             multiline: False
             size_hint: (0.7,0.05)
@@ -115,7 +79,7 @@
             mode: "rectangle"
             required: False
             helper_text_mode: "on_error"
-            hint_text: "Quantidade (Un):"
+            hint_text: "Quantidade:"
             font_size: 16
             multiline: False
             size_hint: (0.7,0.05)
@@ -180,5 +144,5 @@
          MDRaisedButton:
             text:"Cadastrar"
             size_hint: (0.5,0.05)
-            on_press: root.register(desc_product.text, marca.text, cod_product.text, qtd.text, prec_compra.text, prec_atacado.text, prec_varejo.text, cb.text)
+            on_press: root.register(desc_product.text, marca.text, tipo_product.text, qtd.text, prec_compra.text, prec_atacado.text, prec_varejo.text, cb.text)
 

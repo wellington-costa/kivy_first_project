@@ -40,3 +40,39 @@ class PopupScreen():
       box.add_widget(label)
       box.add_widget(btn)
       pop.open()
+
+def showPopupInsertError(mensagem):
+    box = BoxLayout(orientation='vertical', padding=10)
+    pop = Popup(title='ERRO!', content=box, size_hint=(None, None), size=(400, 200))
+    label = Label(text=mensagem)
+    btn = MDRaisedButton(text='ok', on_release=pop.dismiss, pos_hint={'center_x': .5})
+    box.add_widget(label)
+    box.add_widget(btn)
+    pop.open()
+
+def verifyTypeProduct(tipo_label):
+    tipos = ['bebida','alimento','outros']
+    for tipo in tipos:
+        if(tipo==tipo_label.lower()):
+            return True
+
+    return False
+def verifyLabels(product):
+     if verifyTypeProduct(product['tipo']) == True:
+        try:
+            v_compra = float(product['valor_compra'])
+            v_varejo = float(product['valor_varejo'])
+            v_atacado = float(product['valor_atacado'])
+            qtd = float(product['quantidade'])
+
+            return True
+        except:
+            mensagem = "Campos R$ e QTD sao numericos!"
+            showPopupInsertError(mensagem)
+
+            return False
+     else:
+         mensagem = "Tipo de produto incorreto!Ex: bebida, alimento, outros"
+         showPopupInsertError(mensagem)
+         return False
+

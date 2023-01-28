@@ -4,19 +4,50 @@ from pyrebase import pyrebase
 
 import firebase_admin
 from firebase_admin import credentials, firestore
-''
-
-
-
-
-
 '''
+tipos = ['bebida','alimento','outros']
+
+for i in tipos:
+    print(i)
+'''
+
+
+
 cred = credentials.Certificate("mercadinho-9b7ce-firebase-adminsdk-8f95a-7e18e53ebd.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-ref = db.collection('produto').stream()
+listdata=[]
+listkeys=[]
+ref1 = db.collection('alimento').stream()
+ref2 = db.collection('bebida').stream()
+ref3 = db.collection('outros').stream()
 #ref2 = db.collection('produto').document('cod_2')
+for doc in ref1:
+    data =  doc.to_dict()
+    listdata.append(data)
+    listkeys.append(doc.id)
+
+for doc in ref2:
+    data = doc.to_dict()
+    listdata.append(data)
+    listkeys.append(doc.id)
+
+for doc in ref3:
+    data = doc.to_dict()
+    listdata.append(data)
+    listkeys.append(doc.id)
+keys=[]
+for i in listdata:
+    print(i['marca'])
+
+
+print(keys)
+s=0
+for j in listkeys:
+   print(j)
+
+'''
 list=[]
 for doc in ref:
     #print('{}=>{}'.format(doc.id, doc.to_dict()))

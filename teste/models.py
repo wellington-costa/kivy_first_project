@@ -1,4 +1,4 @@
-from core import *
+from core import ConectDB, PopupScreen
 import pyrebase
 
 global db
@@ -6,37 +6,27 @@ global db
 db = ConectDB().conect()
 
 
-def verify_exist_db(cb, table):
-    data = db.collection('produto').where('codigo_barras', '==', cb).stream()
+def verify_exist_db(cb, product):
+    data = db.collection(product).where('codigo_barras', '==', cb).stream()
     for doc in data:
-
        if(doc.id == cb):
-           print(doc.id, cb)
+          return doc.id
 
 
-def registerProduct(descricao, marca, cod_product, qtd, prec_compra, prec_atacado, prec_varejo, cb):
-    product_str = "produto"
+def registerProduct(data,product):
+
     popup = PopupScreen()
-    product = {
-        'descricao': descricao,
-        'marca': marca,
-        'codigo': cod_product,
-        'valor_compra' : prec_compra,
-        'valor_atacado': prec_atacado,
-        'valor_varejo': prec_varejo,
-        'quantidade': qtd,
-        'codigo_barras': cb
-    }
+    cb = data['codigo_barras']
+
     try:
-        if (verify_exist_db(cb, product_str) == True):
-            popup.showPopupScreenExist(product_str)
+        if (verify_exist_db(cb, product) == cb):
+            popup.showPopupScreenExist(product)
             return False
 
         else:
-            if (verify_exist_db(cb,product_str)==False):
-                ref = db.collection(product_str).document(cb)
-                ref.set(product)
-                popup.showPopupScreenSuccess(product_str)
+                ref = db.collection(product).document(cb)
+                ref.set(data)
+                popup.showPopupScreenSuccess(product)
                 return True
 
 
@@ -45,5 +35,24 @@ def registerProduct(descricao, marca, cod_product, qtd, prec_compra, prec_atacad
        return  False
 
 def getProducts():
-    pass
+    listdata = []
+    ref1 = db.collection('alimento').stream()
+    ref2 = db.collection('bebida').stream()
+    ref3 = db.collection('outros').stream()
+
+    for doc in ref1:
+        data = doc.to_dict()
+        listdata.append(data)
+
+
+    for doc in ref2:
+        data = doc.to_dict()
+        listdata.append(data)
+
+
+    for doc in ref3:
+        data = doc.to_dict()
+        listdata.append(data)
+
+    return listdata
 
