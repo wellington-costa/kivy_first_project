@@ -134,6 +134,7 @@
          size_hint:(1,1)
          MDList:
             id:produto
+            #on_touch_down: root.manager.current = 'dashboard'
 
 
 <CadProdScreen>:
@@ -292,12 +293,14 @@
       size_hint_y: .6
       size_hint_x: .3
       ScrollView:
+         id:scrollv
          do_scroll_x: False
          do_scroll_y: True
          pos_hint:{"center_y": .6}
          size_hint:(1,1)
          MDList:
             id:produto_venda
+            on_touch_down: root.addProdutoVenda(produto_venda.children)
 
    MDBoxLayout:
       orientation: 'vertical'

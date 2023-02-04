@@ -16,27 +16,35 @@ class DashboardScreen(Screen):
    pass
 
 class VendasScreen(Screen):
-
+    data = getProducts()
+    def addProdutoVenda(self,produto):
+        prod = produto
     def loadListItems(self,list):
-        widget = self.children[1].children[0].children[0]
-        self.remove_widget(widget)
+
         for produto in list:
-            primary = produto['descricao']
-            secondary = produto['marca']
-            self.manager.get_screen("vendas").ids.produto_venda.add_widget(
-                ThreeLineListItem(text=primary, secondary_text=secondary))
+            primary = produto['marca']
+            secondary = produto['descricao']
+            tertiary = 'Varejo R$ '+ produto['valor_varejo'] + ' | Atacado R$ '+produto['valor_atacado']
+            self.ids.produto_venda.add_widget(
+                ThreeLineListItem(text=primary, secondary_text=secondary, tertiary_text=tertiary))
+
 
     def filterText(self, text):
-        data = getProducts()
+       #self.ids.produto_venda.clear_widgets()
         list = []
-        if len(data) > 0:
-            #tela = self.manager.get_screen("vendas").ids.produto_venda
+        if not text:
+            self.ids.produto_venda.clear_widgets()
+        else:
+            if len(self.data) > 0:
+                # tela = self.manager.get_screen("vendas").ids.produto_venda
+                self.ids.produto_venda.clear_widgets()
+                for produto in self.data:
+                    if text.lower() in produto['descricao'].lower() or text.lower() in produto['marca'].lower() or text in produto['codigo_barras']:
+                        list.append(produto)
 
-            for produto in data:
-                if text in produto['descricao'] or text in produto['marca'] or text in produto['codigo_barras']:
-                    list.append(produto)
+                self.loadListItems(list)
 
-            self.loadListItems(list)
+
 class CadProdScreen(Screen):
 
     def clear(self):
@@ -80,5 +88,5 @@ class ListProdScreen(Screen):
       for produto in data:
         primary = produto['descricao'] + "| Marca: "+ produto['marca']
         secondary = "Varejo R$ "+ produto['valor_varejo'] + "| Atacado R$ "+ produto['valor_atacado']
-        tertiary = "Qtd= "+ produto['quantidade'] + "| Tipo: "+ produto['tipo']
+        tertiary = "Qtd= "+ produto['quantidade'] + "| Tipo: "+ produto['tipo'] + " | "+ produto['codigo_barras']
         self.manager.get_screen("ListProdScreen").ids.produto.add_widget(ThreeLineListItem(text= primary, secondary_text=secondary,tertiary_text=tertiary))
