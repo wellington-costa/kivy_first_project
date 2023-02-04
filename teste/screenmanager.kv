@@ -1,40 +1,151 @@
 <MainScreenManager>:
+   DashboardScreen:
    ListProdScreen:
+   VendasScreen:
    CadProdScreen:
    LoginScreen:
 
 
+<DashboardScreen>:
+   name:"dashboard"
+   MDBoxLayout:
+      md_bg_color: 230/255, 230/255, 230/255, 1
+      orientation:'vertical'
+      MDIconButton:
+         icon:"images/userconf.png"
+         size_hint: .3, .15
+         pos_hint: {"center_x": .22, "center_y": .95}
+         on_release: root.manager.current = 'ListProdScreen'
+
+      MDBoxLayout:
+         size_hint_y:.25
+         padding:dp(25)
+         MDBoxLayout:
+            MDLabel:
+               text:" "
+               halign: "center"
+               font_size: "22sp"
+               #font_name: "Poppins-SemiBold.ttf"
+               pos_hint: {"center_x": .5, "center_y": .45}
+               id: lbdashboard
+
+
+      MDGridLayout:
+         size_hint_y:.75
+         cols:2
+         padding:[dp(15),dp(15),dp(15),dp(35)]
+         spacing:dp(15)
+         ElementCard:
+            image:"images/vendas.png"
+            text:"Nova Venda"
+            on_release: root.manager.current = 'vendas'
+
+         ElementCard:
+            image:"images/estoque.png"
+            text:"Estoque"
+            on_release: root.manager.current = "ListProdScreen"
+
+         ElementCard:
+            image:"images/relatorio.png"
+            text:"Relatorio Vendas"
+            #on_release: app.root.current = 'activities'
+
+         ElementCard:
+            image:"images/adicionar_produto.png"
+            text:"Cadastrar Produto"
+            on_release: root.manager.current = "CadProdScreen"
+
+<ElementCard@MDCard>:
+   md_bg_color: 200/255, 200/255, 200/255, 1
+   padding:dp(10)
+   spacing:dp(10)
+   radius:dp(25)
+   ripple_behavior: True
+   image:''
+   text:""
+   items_count:""
+   subtext:''
+
+   orientation:'vertical'
+   Image:
+      source:root.image
+   MDBoxLayout:
+      orientation:'vertical'
+      MDLabel:
+         halign:"center"
+         text:root.text
+         font_size: "15sp"
+         #font_name: "Poppins-Medium.ttf"
+      MDLabel:
+         halign:"center"
+         font_style:"Caption"
+         text:root.subtext
+      MDLabel:
+         halign:"center"
+         text:root.items_count
+
+
+
+
+
 <ListProdScreen>:
    name: "ListProdScreen"
-   md_bg_color: 188/255, 227/255, 217/255, 1
-   MDLabel:
-      text:"Estoque"
-      pos_hint:{"center_x": .7, "center_y":.89}
-      font_size:30
-   MDTextField
-      hint_text: "Pesquisar produto..."
-      pos_hint:{"center_x": .7, "center_y":.85}
-      size_hint_x: .3
-   ScrollView:
-      do_scroll_x: False
-      do_scroll_y: True
-      pos_hint:{"center_y":.5}
-      size_hint:(1,.6)
-      MDList:
+   on_pre_enter:root.showData()
+   MDBoxLayout:
+      md_bg_color: 200/255, 200/255, 200/255, 1
+      pos_hint:{"center_y": .9}
+      size_hint_y: .2
+      size_hint_x: 1
+      padding:30
+      MDIconButton:
+         icon:"images/btn-voltar.png"
+         text:"Voltar"
+         size_hint: .3, .15
+         pos_hint: {"center_x": .2, "center_y": .7}
+         on_release: root.manager.current = 'dashboard'
+      MDLabel:
+         text:"Estoque"
+         pos_hint:{"center_x": .1, "center_y":.8}
+         font_size:40
+         size_hint_x: 1
+   MDBoxLayout:
+      pos_hint:{"center_y": .75}
+      size_hint_y: .1
+      size_hint_x: 1
+      padding:90
+      md_bg_color: 180/255, 180/255, 180/255, 1
+      MDTextFieldRound
+         hint_text: "Pesquisar produto..."
+         pos_hint:{"center_x": .7, "center_y":.5}
+         size_hint_x: .5
+         color_active: 255, 255, 255, 1
 
-         ThreeLineListItem:
+
+   MDBoxLayout:
+      orientation:"vertical"
+      pos_hint:{"center_y": .3}
+      size_hint_y: .7
+      size_hint_x: 1
+      padding:30
+      ScrollView:
+         do_scroll_x: False
+         do_scroll_y: True
+         pos_hint:{"center_y": .6}
+         size_hint:(1,1)
+         MDList:
             id:produto
-            text: "Estoque Vazio!"
-            secondary_text:" "
-            tertiary_text:" "
-
-
-            on_active:root.showData()
 
 
 <CadProdScreen>:
    name: "CadProdScreen"
    MDFloatLayout:
+      md_bg_color: 230/255, 230/255, 230/255, 1
+      MDIconButton:
+         icon:"images/btn-voltar.png"
+         text:"Voltar"
+         size_hint: .3, .15
+         pos_hint: {"center_x": .2, "center_y": .9}
+         on_release: root.manager.current = 'dashboard'
       MDLabel:
          text:"Cadastro de Produto"
          pos_hint:{"center_x":.73, "center_y":.90}
@@ -146,3 +257,52 @@
             size_hint: (0.5,0.05)
             on_press: root.register(desc_product.text, marca.text, tipo_product.text, qtd.text, prec_compra.text, prec_atacado.text, prec_varejo.text, cb.text)
 
+<VendasScreen>:
+   name:"vendas"
+   MDBoxLayout
+      orientation: 'vertical'
+      padding:30
+      pos_hint:{"center_y":.9}
+      md_bg_color: 100/255, 100/255, 100/255, 1
+      size_hint_y: .6
+      size_hint_x: .3
+      MDIconButton:
+         icon:"images/btn-voltar.png"
+         text:"Voltar"
+         size_hint: .3, .15
+         pos_hint: {"center_x": .2, "center_y": .9}
+         on_release: root.manager.current = 'dashboard'
+      MDTextField:
+         id:textSearch
+         pos_hint:{"center_y":.9}
+         hint_text: "Pesquisar produto..."
+         on_text:root.filterText(textSearch.text)
+         pos_hint_y: 1
+         pos_hint_x: .5
+         size_hint_x: .9
+
+
+
+
+   MDBoxLayout:
+      orientation: 'vertical'
+      padding:30
+      pos_hint:{"center_y":.3}
+      md_bg_color: 100/255, 100/255, 100/255, 1
+      size_hint_y: .6
+      size_hint_x: .3
+      ScrollView:
+         do_scroll_x: False
+         do_scroll_y: True
+         pos_hint:{"center_y": .6}
+         size_hint:(1,1)
+         MDList:
+            id:produto_venda
+
+   MDBoxLayout:
+      orientation: 'vertical'
+      padding:30
+      pos_hint:{"center_x":.65}
+      md_bg_color: 230/255, 230/255, 230/255, 1
+      size_hint_y: 1
+      size_hint_x: .7

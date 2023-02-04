@@ -1,15 +1,27 @@
 import json
 
 from pyrebase import pyrebase
-
+import models
 import firebase_admin
 from firebase_admin import credentials, firestore
+
+data = models.getProducts()
+
+for produto in data:
+    print(produto['marca'])
+
+
+
+
+
+
+
 '''
 tipos = ['bebida','alimento','outros']
 
 for i in tipos:
     print(i)
-'''
+
 
 
 
@@ -47,7 +59,7 @@ s=0
 for j in listkeys:
    print(j)
 
-'''
+
 list=[]
 for doc in ref:
     #print('{}=>{}'.format(doc.id, doc.to_dict()))
